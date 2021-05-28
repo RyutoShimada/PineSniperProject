@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PineGenerater : MonoBehaviour
 {
+    [SerializeField] GameObject _pineObject = null;
+
     // Start is called before the first frame update
     void Start()
     {
