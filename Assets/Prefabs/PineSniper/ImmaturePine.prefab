@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8978164981476759200}
   - component: {fileID: 8999267188206382186}
   - component: {fileID: 8991255107932880628}
+  - component: {fileID: 4566992729534064251}
   m_Layer: 0
   m_Name: ImmaturePine
   m_TagString: Untagged
@@ -79,3 +80,15 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4566992729534064251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8977188115360160454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0244f40c574a48346a9e3768f64bfb74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

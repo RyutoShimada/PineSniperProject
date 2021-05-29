@@ -81,7 +81,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_DynamicPixelsPerUnit: 2000
 --- !u!114 &7804097909843191315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 4703077126546237446}
   - component: {fileID: 5582822783166746191}
   m_Layer: 5
-  m_Name: Text
+  m_Name: CountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4821771520836575252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7794084613723622005}
@@ -133,7 +133,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -280, y: 172.5}
+  m_AnchoredPosition: {x: -639.98486, y: -360.03897}
   m_SizeDelta: {x: -560, y: -345}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4703077126546237446
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -176,7 +176,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 1
 --- !u!1 &5123806048617838803
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 5122512558787245237}
   - component: {fileID: 5147010332298120831}
   - component: {fileID: 5136726534571875553}
+  - component: {fileID: 1569422704635767556}
   m_Layer: 0
   m_Name: Pineapple
   m_TagString: Untagged
@@ -257,3 +258,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1569422704635767556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5123806048617838803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e599ae997de7484aa30564d4a9d64aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 5582822783166746191}
+  _pineState: 1
+  m_bomCount: 0
