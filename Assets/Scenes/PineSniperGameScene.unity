@@ -971,6 +971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scope: {fileID: 49104137}
+  _vcam: {fileID: 1245047742}
 --- !u!1001 &982309512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2062,10 +2063,12 @@ MonoBehaviour:
   _immaturePineObject: {fileID: 8977188115360160454, guid: 74dece147cf42ba4da48b57c04e587dc,
     type: 3}
   _generatePos: {fileID: 942714131}
-  _width: 5
-  _tweakOfWidth: 0.75
-  _height: 3
-  _tweakOfHeight: 1
+  _line: 5
+  _tweakOfLine: 0.75
+  _column: 3
+  _tweakOfColumn: 1
+  _pineTweakHeight: 0
+  _leafTweakHeight: -0.1
 --- !u!1001 &2588515795466148680
 PrefabInstance:
   m_ObjectHideFlags: 0

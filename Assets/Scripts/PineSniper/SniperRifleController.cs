@@ -10,7 +10,14 @@ public class SniperRifleController : MonoBehaviour
     void Start()
     {
         _anim = GetComponent<Animator>();
-        _anim.SetTrigger("AimTrigger");
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire2"))
+        {
+            _anim.SetTrigger("AimTrigger");
+        }
     }
 
     /// <summary>
