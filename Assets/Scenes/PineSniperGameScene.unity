@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &49104136
 RectTransform:
   m_ObjectHideFlags: 0
@@ -971,7 +971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scope: {fileID: 49104137}
-  _vcam: {fileID: 1245047742}
+  _originVcam: {fileID: 1245047742}
 --- !u!1001 &982309512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1595,7 +1595,7 @@ GameObject:
   - component: {fileID: 1396468469}
   - component: {fileID: 1396468468}
   m_Layer: 0
-  m_Name: ZoomVcam
+  m_Name: ScopeVcam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1859,9 +1859,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 1
   m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0
@@ -1883,7 +1883,7 @@ MonoBehaviour:
   m_VerticalAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 300
+    m_MaxSpeed: 400
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
@@ -1907,7 +1907,7 @@ MonoBehaviour:
   m_HorizontalAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 300
+    m_MaxSpeed: 400
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -2063,11 +2063,12 @@ MonoBehaviour:
   _immaturePineObject: {fileID: 8977188115360160454, guid: 74dece147cf42ba4da48b57c04e587dc,
     type: 3}
   _generatePos: {fileID: 942714131}
+  immaturePineCount: 3
   _line: 5
   _tweakOfLine: 0.75
   _column: 3
   _tweakOfColumn: 1
-  _pineTweakHeight: 0
+  _pineTweakHeight: -1
   _leafTweakHeight: -0.1
 --- !u!1001 &2588515795466148680
 PrefabInstance:

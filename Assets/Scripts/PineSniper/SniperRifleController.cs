@@ -14,7 +14,7 @@ public class SniperRifleController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire1"))
         {
             _anim.SetTrigger("AimTrigger");
         }
