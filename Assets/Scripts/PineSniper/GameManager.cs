@@ -10,11 +10,14 @@ public class GameManager : MonoBehaviour
     /// <summary>初期位置にあるカメラ</summary>
     [SerializeField] GameObject _originVcam = null;
 
+    PineGenerater _pine;
+
     bool _isScope;
 
     // Start is called before the first frame update
     void Start()
     {
+        _pine = FindObjectOfType<PineGenerater>();
         _isScope = false;
         _scope.gameObject.SetActive(false);
     }
@@ -48,7 +51,14 @@ public class GameManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.name == "Leaf(Clone)")
                 {
-                    //Debug.Log(hit.collider.gameObject.name);
+                    Leaf leaf = hit.collider.gameObject.GetComponent<Leaf>();
+
+                    Debug.Log($"Pine : [{_pine._pines[leaf.IndexColumn, leaf.IndexLine].gameObject.name}]");
+
+                    Pine pine = _pine._pines[leaf.IndexColumn, leaf.IndexLine].gameObject.GetComponent<Pine>();
+
+                    pine.PullOut();
+
                     hit.collider.gameObject.SetActive(false);
                 }
             }

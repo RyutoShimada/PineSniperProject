@@ -506,9 +506,9 @@ MonoBehaviour:
   m_gridLayoutGroup: {fileID: 664889107}
   m_gridLayoutGroupCover: {fileID: 1790666348}
   m_gameOverText: {fileID: 1273093443}
-  m_setBomCount: 5
-  m_width: 6
-  m_height: 6
+  m_setBomCount: 10
+  m_width: 10
+  m_height: 10
   m_openCells: 0
 --- !u!4 &1125278384
 Transform:

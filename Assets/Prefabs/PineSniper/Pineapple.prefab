@@ -125,7 +125,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4821771520836575252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.184}
+  m_LocalPosition: {x: 0, y: 0, z: -0.148}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7794084613723622005}
@@ -133,7 +133,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -639.99243, y: -360.06946}
+  m_AnchoredPosition: {x: -639.99243, y: -360.049}
   m_SizeDelta: {x: -559.98486, y: -345.06104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4703077126546237446
@@ -272,4 +272,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 5582822783166746191}
   _pineState: 1
-  _pullOutDistance: 0.25
+  _pullOutDistance: 1.5
+  _immaturePineCount: 0
+  _isSearched: 0

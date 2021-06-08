@@ -2063,7 +2063,7 @@ MonoBehaviour:
   _immaturePineObject: {fileID: 8977188115360160454, guid: 74dece147cf42ba4da48b57c04e587dc,
     type: 3}
   _generatePos: {fileID: 942714131}
-  immaturePineCount: 3
+  immaturePineCount: 2
   _line: 5
   _tweakOfLine: 0.75
   _column: 3
