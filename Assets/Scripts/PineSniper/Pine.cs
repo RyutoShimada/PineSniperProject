@@ -24,28 +24,32 @@ public class Pine : MonoBehaviour
 
     [SerializeField] private PineState _pineState = PineState.None;
 
-    [SerializeField] float _pullOutDistance = 0.25f;
+    /// <summary>地表に出るための高さ</summary>
+    [SerializeField] float _pullOutDistance = 1.5f;
 
-    //public int m_bomCount = 0;
+    public int _immaturePineCount = 0;
 
-    private int m_height = 0;
-    private int m_width = 0;
+    /// <summary>探索済みかどうか</summary>
+    public bool _isSearched = false;
 
-    public int IndexHegit
+    private int _column = 0;
+    private int _line = 0;
+
+    public int IndexColumn
     {
-        get => m_height;
+        get => _column;
         set
         {
-            m_height = value;
+            _column = value;
         }
     }
 
-    public int IndexWidth
+    public int IndexLine
     {
-        get => m_width;
+        get => _line;
         set
         {
-            m_width = value;
+            _line = value;
         }
     }
 
