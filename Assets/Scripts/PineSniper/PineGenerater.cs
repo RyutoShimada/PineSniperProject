@@ -28,22 +28,24 @@ public class PineGenerater : MonoBehaviour
     [SerializeField] float _leafTweakHeight = 0;
     /// <summary>Pineの2次元配列</summary>
     public　Pine[,] _pines { get; private set; }
+    public　Leaf[,] _leafs { get; private set; }
 
-    GameObject[,] _go;
+    GameObject[,] _pineObj;
 
     // Start is called before the first frame update
     void Start()
     {
         _pines = new Pine[_column, _line];
-        _go = new GameObject[_column, _line];
-        GeneratePine(_pines, _go);
-        GenerateImmaturePine(_pines, _go, immaturePineCount);
+        _leafs = new Leaf[_column, _line];
+        _pineObj = new GameObject[_column, _line];
+        GeneratePine(_pines, _pineObj);
+        GenerateImmaturePine(_pines, _pineObj, immaturePineCount);
     }
 
     /// <summary>
     /// Pineの生成
     /// </summary>
-    void GeneratePine(Pine[,] pines, GameObject[,] go)
+    void GeneratePine(Pine[,] pines, GameObject[,] pineObj)
     {
         // ここでPineを生成する
         for (int column = 0; column < pines.GetLength(0); column++)
@@ -54,17 +56,17 @@ public class PineGenerater : MonoBehaviour
                 Vector3 leafPos = _generatePos.position + new Vector3(line * _tweakOfLine, _leafTweakHeight, -column * _tweakOfColumn);
 
                // Pineの配列にインスタンス化したものを入れるために一度変換している
-                go[column, line] = Instantiate(_pineObject, pinePos, _generatePos.rotation, _generatePos);
+                pineObj[column, line] = Instantiate(_pineObject, pinePos, _generatePos.rotation, _generatePos);
 
                 // Leafを生成
-                GameObject leaf =　Instantiate(_leafObject, leafPos, _generatePos.rotation, _generatePos);
+                _leafs[column, line] = Instantiate(_leafObject, leafPos, _generatePos.rotation, _generatePos).gameObject.GetComponent<Leaf>();
 
                 // インデックス情報を更新
-                leaf.GetComponent<Leaf>().IndexColumn = column;
-                leaf.GetComponent<Leaf>().IndexLine = line;
+                _leafs[column, line].GetComponent<Leaf>().IndexColumn = column;
+                _leafs[column, line].GetComponent<Leaf>().IndexLine = line;
 
                 // ステート変更
-                pines[column, line] = go[column, line].GetComponent<Pine>();
+                pines[column, line] = pineObj[column, line].GetComponent<Pine>();
                 pines[column, line].PineState = PineState.None;
 
                 // インデックス情報を変更
@@ -74,7 +76,7 @@ public class PineGenerater : MonoBehaviour
         }
     }
 
-    void GenerateImmaturePine(Pine[,] pines, GameObject[,] go, int count)
+    void GenerateImmaturePine(Pine[,] pines, GameObject[,] pineObj, int count)
     {
         if (count > pines.GetLength(0) * pines.GetLength(1)) count = pines.GetLength(0) * pines.GetLength(1); //無限ループを防ぐ
 
@@ -83,25 +85,21 @@ public class PineGenerater : MonoBehaviour
             int randomHeight = Random.Range(0, pines.GetLength(0));
             int randomWidth = Random.Range(0, pines.GetLength(1));
 
-            GameObject pineObj = go[randomHeight, randomWidth];
-            Pine pine = pineObj.GetComponent<Pine>();
+            Pine pine = pineObj[randomHeight, randomWidth].gameObject.GetComponent<Pine>();
 
             if (pine.PineState != PineState.ImmaturePine)
             {
                 // コードが長くなるのを防ぐために仮の変数に代入
-                Vector3 v3 = new Vector3(pineObj.transform.position.x, _pineTweakHeight, pineObj.transform.position.z);
+                Vector3 v3 = new Vector3(pine.transform.position.x, _pineTweakHeight, pine.transform.position.z);
 
                 // 未熟なパインをインスタンス化
-                GameObject immaturePine = Instantiate(_immaturePineObject, v3, pineObj.transform.rotation);
+                GameObject immaturePine = Instantiate(_immaturePineObject, v3, pine.transform.rotation, _generatePos);
 
                 // インスタンス化した未熟なパインを配列に入れる
                 pines[randomHeight, randomWidth] = immaturePine.gameObject.GetComponent<Pine>();
-                
-                //  ステートを変更
-                pine.PineState = PineState.ImmaturePine;
 
-                // immaturePineの周りのPineにimmaturePineの個数を知らせる
-                SetImmaturePineCount(pines, randomHeight, randomWidth);
+                //  ステートを変更
+                pines[randomHeight, randomWidth].PineState = PineState.ImmaturePine;
 
                 // 既に生成されているパインを削除
                 Destroy(pine.gameObject);
@@ -130,7 +128,7 @@ public class PineGenerater : MonoBehaviour
             }
         }
 
-        foreach (var item in pines)
+        foreach (var item in _pines)
         {
             if (item.PineState != PineState.ImmaturePine)
             {

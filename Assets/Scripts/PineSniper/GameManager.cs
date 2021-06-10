@@ -16,19 +16,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] float _fieldSpace = 0.25f;
 
-    [SerializeField] PineGeneraterMaster _generaterMaster;
+    [SerializeField] Farmer _farmer;
 
     /// <summary>スコープを覗いているか</summary>
     bool _isScope;
 
     PineGenerater _pine;
-
-    PineGeneraterMaster _master;
     
     // Start is called before the first frame update
     void Start()
     {
-        _master = FindObjectOfType<PineGeneraterMaster>();
+        _farmer = FindObjectOfType<Farmer>();
         _isScope = false;
         _scope.gameObject.SetActive(false);
         CreateFields();
@@ -46,7 +44,7 @@ public class GameManager : MonoBehaviour
     public void OnScope()
     {
         _pine = FindObjectOfType<PineGenerater>();
-        _master.Generate();
+        _farmer.Generate();
         _isScope = true;
         _scope.gameObject.SetActive(true);
         _originVcam.SetActive(false);
@@ -69,7 +67,8 @@ public class GameManager : MonoBehaviour
 
                     //Debug.Log($"Pine : [{_pine._pines[leaf.IndexColumn, leaf.IndexLine].gameObject.name}]");
 
-                    Pine pine = _pine._pines[leaf.IndexColumn, leaf.IndexLine].gameObject.GetComponent<Pine>();
+                    //Pine pine = _master._pines[leaf.IndexColumn, leaf.IndexLine].gameObject.GetComponent<Pine>();
+                    Pine pine = _farmer._pines[leaf.MasterIndexColumn, leaf.MasterIndexLine].gameObject.GetComponent<Pine>();
 
                     pine.PullOut();
 
@@ -92,8 +91,8 @@ public class GameManager : MonoBehaviour
                 fields[column, line] = Instantiate(_field);
                 Vector3 v3 = new Vector3((line * fieldWidthX) * _fieldSpace, 0, (column * fieldWidthZ) * _fieldSpace);
                 fields[column, line].gameObject.transform.position = v3;
-                _generaterMaster._generaterList.Add(fields[column, line].gameObject.transform.Find("PineGenerater").GetComponent<PineGenerater>());
-                _generaterMaster._fieldWidth = _fieldsWidth;
+                _farmer._generaterList.Add(fields[column, line].gameObject.transform.Find("PineGenerater").GetComponent<PineGenerater>());
+                _farmer._fieldWidth = _fieldsWidth;
             }
         }
     }
