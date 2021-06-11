@@ -886,6 +886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _generaterList: []
+  <_fieldWidth>k__BackingField: 0
 --- !u!1001 &807652613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -982,7 +983,7 @@ GameObject:
   - component: {fileID: 825814543}
   - component: {fileID: 825814544}
   m_Layer: 0
-  m_Name: Generater
+  m_Name: Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1014,11 +1015,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056c899aec851824185e030cabcfeacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _columnCount: 3
-  _lineCount: 5
-  _columnSetDistance: 0.5
-  _lineSetDistance: 0.5
-  _generatePos: {fileID: 825814543}
+  _generatePrefab: {fileID: 5123806048617838803, guid: d9293fa5eda68c74bb2c8ef8f7c13a6a,
+    type: 3}
+  _objCountZ: 3
+  _objCountX: 5
+  _objSetDistanceZ: 1
+  _objSetDistanceX: 0.75
+  _objSetPosY: -1
+  _field: {fileID: 621684176396400966, guid: e51571999c73e5547923752c67b78406, type: 3}
+  _fieldCountX: 2
+  _fieldCountZ: 2
+  _fieldSetDistance: 1
 --- !u!1 &964128605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,7 +1074,6 @@ MonoBehaviour:
   _field: {fileID: 621684176396400966, guid: 85ceb8b82c71c5f43b5420fdf9bcf8d2, type: 3}
   _fieldsWidth: 3
   _fieldSpace: 1.75
-  _farmer: {fileID: 0}
 --- !u!1001 &982309512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1773,7 +1779,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396468467}
   m_LocalRotation: {x: 0.29237035, y: 0.0028977054, z: -0.00091611134, w: 0.9563004}
-  m_LocalPosition: {x: -0.01, y: 4.09, z: -5.62}
+  m_LocalPosition: {x: 0, y: 5.98, z: -6.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1940626299}
@@ -1804,7 +1810,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458996771}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 7.677609, z: -13.02}
+  m_LocalPosition: {x: -0.024, y: 7.677609, z: -13.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1067644595}
@@ -1925,7 +1931,7 @@ MonoBehaviour:
     m_InputAxisValue: 0
     m_InvertInput: 1
     m_MinValue: 25
-    m_MaxValue: 50
+    m_MaxValue: 70
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0
@@ -1948,8 +1954,8 @@ MonoBehaviour:
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
     m_InvertInput: 0
-    m_MinValue: -35
-    m_MaxValue: 35
+    m_MinValue: -60
+    m_MaxValue: 60
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0

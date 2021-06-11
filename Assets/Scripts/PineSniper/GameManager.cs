@@ -16,20 +16,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] float _fieldSpace = 0.25f;
 
-    [SerializeField] Farmer _farmer;
-
     /// <summary>スコープを覗いているか</summary>
     bool _isScope;
-
-    PineGenerater _pine;
     
     // Start is called before the first frame update
     void Start()
     {
-        _farmer = FindObjectOfType<Farmer>();
         _isScope = false;
         _scope.gameObject.SetActive(false);
-        CreateFields();
+        //CreateFields();
     }
 
     // Update is called once per frame
@@ -43,8 +38,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnScope()
     {
-        _pine = FindObjectOfType<PineGenerater>();
-        _farmer.Generate();
+        //_farmer.Generate();
         _isScope = true;
         _scope.gameObject.SetActive(true);
         _originVcam.SetActive(false);
@@ -65,13 +59,6 @@ public class GameManager : MonoBehaviour
                 {
                     Leaf leaf = hit.collider.gameObject.GetComponent<Leaf>();
 
-                    //Debug.Log($"Pine : [{_pine._pines[leaf.IndexColumn, leaf.IndexLine].gameObject.name}]");
-
-                    //Pine pine = _master._pines[leaf.IndexColumn, leaf.IndexLine].gameObject.GetComponent<Pine>();
-                    Pine pine = _farmer._pines[leaf.MasterIndexColumn, leaf.MasterIndexLine].gameObject.GetComponent<Pine>();
-
-                    pine.PullOut();
-
                     hit.collider.gameObject.SetActive(false);
                 }
             }
@@ -91,8 +78,6 @@ public class GameManager : MonoBehaviour
                 fields[column, line] = Instantiate(_field);
                 Vector3 v3 = new Vector3((line * fieldWidthX) * _fieldSpace, 0, (column * fieldWidthZ) * _fieldSpace);
                 fields[column, line].gameObject.transform.position = v3;
-                _farmer._generaterList.Add(fields[column, line].gameObject.transform.Find("PineGenerater").GetComponent<PineGenerater>());
-                _farmer._fieldWidth = _fieldsWidth;
             }
         }
     }
