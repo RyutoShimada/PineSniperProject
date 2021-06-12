@@ -27,7 +27,7 @@ public class Pine : MonoBehaviour
     private int _immaturePineCount = 0;
 
     /// <summary>探索済みかどうか</summary>
-    public bool _isSearched = false;
+    private bool _isSearched = false;
 
     private int _countZ = 0;
     private int _countX = 0;
@@ -38,6 +38,15 @@ public class Pine : MonoBehaviour
         set
         {
             _immaturePineCount = value;
+        }
+    }
+
+    public bool IsSearched
+    {
+        get => _isSearched;
+        set
+        {
+            _isSearched = value;
         }
     }
 
