@@ -24,32 +24,38 @@ public class Pine : MonoBehaviour
 
     [SerializeField] private PineState _pineState = PineState.None;
 
-    /// <summary>地表に出るための高さ</summary>
-    [SerializeField] float _pullOutDistance = 1.5f;
-
-    public int _immaturePineCount = 0;
+    private int _immaturePineCount = 0;
 
     /// <summary>探索済みかどうか</summary>
     public bool _isSearched = false;
 
-    private int _column = 0;
-    private int _line = 0;
+    private int _countZ = 0;
+    private int _countX = 0;
 
-    public int IndexColumn
+    public int ImmaturePineCount
     {
-        get => _column;
+        get => _immaturePineCount;
         set
         {
-            _column = value;
+            _immaturePineCount = value;
         }
     }
 
-    public int IndexLine
+    public int IndexCountZ
     {
-        get => _line;
+        get => _countZ;
         set
         {
-            _line = value;
+            _countZ = value;
+        }
+    }
+
+    public int IndexCountX
+    {
+        get => _countX;
+        set
+        {
+            _countX = value;
         }
     }
 
@@ -91,10 +97,10 @@ public class Pine : MonoBehaviour
     /// <summary>
     /// 土に埋もれている状態から地表へ移動する
     /// </summary>
-    public void PullOut()
+    public void PullOut(float pullOutDistance)
     {
         Vector3 v3 = this.gameObject.transform.position;
-        v3.y += _pullOutDistance;
+        v3.y += pullOutDistance;
         this.gameObject.transform.position = v3;
     }
 }

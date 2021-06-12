@@ -10,21 +10,21 @@ public class GameManager : MonoBehaviour
     /// <summary>初期位置にあるカメラ</summary>
     [SerializeField] GameObject _originVcam = null;
 
-    [SerializeField] GameObject _field = null;
+    [SerializeField] float _pullOutDistance = 1.5f;
 
-    [SerializeField] int _fieldsWidth = 1;
-
-    [SerializeField] float _fieldSpace = 0.25f;
+    Generater _generater;
 
     /// <summary>スコープを覗いているか</summary>
     bool _isScope;
+
+    bool _isFirst = true;
     
     // Start is called before the first frame update
     void Start()
     {
+        _generater = FindObjectOfType<Generater>();
         _isScope = false;
         _scope.gameObject.SetActive(false);
-        //CreateFields();
     }
 
     // Update is called once per frame
@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnScope()
     {
-        //_farmer.Generate();
         _isScope = true;
         _scope.gameObject.SetActive(true);
         _originVcam.SetActive(false);
@@ -59,25 +58,15 @@ public class GameManager : MonoBehaviour
                 {
                     Leaf leaf = hit.collider.gameObject.GetComponent<Leaf>();
 
-                    hit.collider.gameObject.SetActive(false);
+                    if (_isFirst)
+                    {
+                        _generater.GenerateMine(leaf._pine.IndexCountZ, leaf._pine.IndexCountX);
+                        _isFirst = false;
+                    }
+
+                    leaf._pine.PullOut(_pullOutDistance);
+                    leaf.SetActivFalse();
                 }
-            }
-        }
-    }
-
-    void CreateFields()
-    {
-        float fieldWidthX = _field.transform.Find("Soil").GetComponent<Renderer>().bounds.size.x;
-        float fieldWidthZ = _field.transform.Find("Soil").GetComponent<Renderer>().bounds.size.z;
-
-        GameObject[,] fields = new GameObject[_fieldsWidth, _fieldsWidth];
-        for (int column = 0; column < _fieldsWidth; column++)
-        {
-            for (int line = 0; line < _fieldsWidth; line++)
-            {
-                fields[column, line] = Instantiate(_field);
-                Vector3 v3 = new Vector3((line * fieldWidthX) * _fieldSpace, 0, (column * fieldWidthZ) * _fieldSpace);
-                fields[column, line].gameObject.transform.position = v3;
             }
         }
     }

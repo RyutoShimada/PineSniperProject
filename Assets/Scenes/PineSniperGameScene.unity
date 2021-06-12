@@ -972,15 +972,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _generatePrefab: {fileID: 5123806048617838803, guid: d9293fa5eda68c74bb2c8ef8f7c13a6a,
     type: 3}
+  _leafPrefab: {fileID: 4040787977311520808, guid: ac1eeb75fccd7d7408d6887edc553400,
+    type: 3}
   _objCountZ: 3
   _objCountX: 5
   _objSetDistanceZ: 1
   _objSetDistanceX: 0.75
   _objSetPosY: -1
+  _leafSetPosY: -0.15
   _field: {fileID: 621684176396400966, guid: e51571999c73e5547923752c67b78406, type: 3}
   _fieldCountX: 2
   _fieldCountZ: 2
   _fieldSetDistance: 1
+  _minePrefab: {fileID: 8977188115360160454, guid: 74dece147cf42ba4da48b57c04e587dc,
+    type: 3}
+  _mineCount: 10
 --- !u!1 &964128605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,9 +1032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scope: {fileID: 49104137}
   _originVcam: {fileID: 1245047742}
-  _field: {fileID: 621684176396400966, guid: 85ceb8b82c71c5f43b5420fdf9bcf8d2, type: 3}
-  _fieldsWidth: 3
-  _fieldSpace: 1.75
+  _pullOutDistance: 1.5
 --- !u!1001 &982309512
 PrefabInstance:
   m_ObjectHideFlags: 0
