@@ -23,8 +23,8 @@ public class Generater : MonoBehaviour
     [SerializeField] float _objSetPosY = -1f;
     /// <summary>生成するLeafオブジェクトのY軸</summary>
     [SerializeField] float _leafSetPosY = -1f;
-    Pine[,] _pines;
-    Leaf[,] _leafs;
+    public Pine[,] _pines { get; private set; }
+    public Leaf[,] _leafs { get; private set; }
 
     /// <summary>生成するフィールドのPrefab</summary>
     [SerializeField] GameObject _field = null;

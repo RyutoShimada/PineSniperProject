@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4053794525837356058}
   - component: {fileID: 356954358623898923}
   - component: {fileID: 8215870757978970539}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Leaf
-  m_TagString: Untagged
+  m_TagString: LeafTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,3 +106,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18d19b608f24704cb474c865ce028be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pine: {fileID: 0}

@@ -20,9 +20,13 @@ public enum PineState
 
 public class Pine : MonoBehaviour
 {
-    [SerializeField] private Text _view = null;
+    [SerializeField] Text _view = null;
 
-    [SerializeField] private PineState _pineState = PineState.None;
+    [SerializeField] PineState _pineState = PineState.None;
+
+    [SerializeField] int _pineScore = 0;
+
+    [SerializeField] int _mineScore = 0;
 
     private int _immaturePineCount = 0;
 

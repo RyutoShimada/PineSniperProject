@@ -1033,8 +1033,9 @@ MonoBehaviour:
   _scope: {fileID: 49104137}
   _originVcam: {fileID: 1245047742}
   _scopeVcam: {fileID: 1396468468}
-  _scopeDis: 30
+  _zoomDis: 20
   _pullOutDistance: 1.5
+  _sniper: {fileID: 982309515}
 --- !u!1001 &982309512
 PrefabInstance:
   m_ObjectHideFlags: 0

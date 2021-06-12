@@ -12,14 +12,6 @@ public class SniperRifleController : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            _anim.SetTrigger("AimTrigger");
-        }
-    }
-
     /// <summary>
     /// スコープを覗く
     /// アニメーションイベントから呼ばれる
@@ -27,5 +19,13 @@ public class SniperRifleController : MonoBehaviour
     public void DoAim()
     {
         FindObjectOfType<GameManager>().OnScope();
+    }
+
+    public void Idol()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            _anim.SetTrigger("AimTrigger");
+        }
     }
 }
