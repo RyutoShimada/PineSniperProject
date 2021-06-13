@@ -37,7 +37,7 @@ public class Generater : MonoBehaviour
     GameObject[,] _fields;
 
     [SerializeField] GameObject _minePrefab = null;
-    [SerializeField] int _mineCount = 0;
+    public int _mineCount = 0;
 
     /// <summary>実際にオブジェクトを生成する位置</summary>
     Vector3[,] _generatePositions;
@@ -129,7 +129,7 @@ public class Generater : MonoBehaviour
                 v3.y = _leafSetPosY; // yをリセット
                 leafObjects[z, x].transform.position = v3;
                 _leafs[z, x] = leafObjects[z, x].gameObject.GetComponent<Leaf>();
-                _leafs[z, x]._pine = _pines[z, x]; // Pineの情報を渡す
+                _leafs[z, x].Pine = _pines[z, x]; // Pineの情報を渡す
             }
         }
     }
@@ -156,7 +156,7 @@ public class Generater : MonoBehaviour
                 //_pineObjects[randomZ, randomX] = Instantiate(_minePrefab, _pineObjects[randomZ, randomX].transform.position, _pineObjects[randomZ, randomX].transform.rotation);
                 _pines[randomZ, randomX] = Instantiate(_minePrefab, _pines[randomZ, randomX].transform.position, _pines[randomZ, randomX].transform.rotation).gameObject.GetComponent<Pine>();
                 _pines[randomZ, randomX].PineState = PineState.ImmaturePine;
-                _leafs[randomZ, randomX]._pine = _pines[randomZ, randomX];
+                _leafs[randomZ, randomX].Pine = _pines[randomZ, randomX];
                 SetMineCount(randomZ, randomX);
                 i++; //ここに書くことで、条件を満たさない限り無限にループする
             }

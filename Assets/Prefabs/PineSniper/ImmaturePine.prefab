@@ -94,6 +94,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 0}
   _pineState: 0
-  _pullOutDistance: 1.5
-  _immaturePineCount: 0
-  _isSearched: 0
+  _pineScore: 100
+  _mineScore: 200

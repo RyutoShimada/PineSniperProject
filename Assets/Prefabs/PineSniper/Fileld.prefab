@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4947855552941186030}
   m_Layer: 0
-  m_Name: FileldMaster
+  m_Name: Fileld
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,6 +73,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4947855552941186030}
     m_Modifications:
+    - target: {fileID: 2153831288735710352, guid: 00dc9c0e575f31149880bf556dc5663d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8342106771452815747, guid: 00dc9c0e575f31149880bf556dc5663d,
         type: 3}
       propertyPath: m_Name

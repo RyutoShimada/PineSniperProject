@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 320, y: 180}
-  m_SizeDelta: {x: 1280, y: 720}
+  m_AnchoredPosition: {x: 0, y: -0.024}
+  m_SizeDelta: {x: 0.3, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7705547487178046772
 Canvas:
@@ -133,8 +133,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -639.99243, y: -360.049}
-  m_SizeDelta: {x: -559.98486, y: -345.06104}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4703077126546237446
 CanvasRenderer:
@@ -272,5 +272,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 5582822783166746191}
   _pineState: 1
-  _immaturePineCount: 0
-  _isSearched: 0
+  _pineScore: 100
+  _mineScore: 200

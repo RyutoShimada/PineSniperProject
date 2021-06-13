@@ -24,9 +24,9 @@ public class Pine : MonoBehaviour
 
     [SerializeField] PineState _pineState = PineState.None;
 
-    [SerializeField] int _pineScore = 0;
+    public int _pineScore = 0;
 
-    [SerializeField] int _mineScore = 0;
+    public int _mineScore = 0;
 
     private int _immaturePineCount = 0;
 
