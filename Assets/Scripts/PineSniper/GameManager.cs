@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text _pineCountText = null;
     [SerializeField] Text _mineCountText = null;
     [SerializeField] Text _timerText = null;
+    [SerializeField] GameObject _gaugeObj = null;
+    GaugeController _gaugeController;
     Generater _generater;
 
     /// <summary>ゲーム中か</summary>
@@ -52,6 +54,8 @@ public class GameManager : MonoBehaviour
     /// <summary>残りMineのボーナススコア</summary>
     float _mineBonusScore = 0;
 
+    bool _doneSearching = false;
+
     int _minute = 0;
     float _second = 0;
 
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
         _scope.gameObject.SetActive(false);
         _originView = _scopeVcam.m_Lens.FieldOfView;
         _minute = _setTime;
+        _gaugeController = _gaugeObj.GetComponent<GaugeController>();
     }
 
     // Update is called once per frame
@@ -83,6 +88,8 @@ public class GameManager : MonoBehaviour
                 _second = 59;
             }
             _timerText.text = $"タイム  {_minute.ToString("00")} : {_second.ToString("00")}";
+
+            if (_gaugeController.IsGauge) return;
             Ray();
         }
     }
@@ -115,7 +122,7 @@ public class GameManager : MonoBehaviour
 
                     if (_isFirst)
                     {
-                         _generater.GenerateMine(leaf.Pine.IndexCountZ, leaf.Pine.IndexCountX);
+                        _generater.GenerateMine(leaf.Pine.IndexCountZ, leaf.Pine.IndexCountX);
                         _totalMineCount = _generater._mineCount;
                         _totalPineCount = _generater._pines.Length - _totalMineCount;
                         _isFirst = false;
@@ -123,7 +130,13 @@ public class GameManager : MonoBehaviour
 
                     if (leaf.Pine.PineState == PineState.None)
                     {
-                        Searching(leaf.Pine.IndexCountZ, leaf.Pine.IndexCountX);
+                        _gaugeObj.SetActive(true);
+                        _gaugeController.IsGauge = true;
+                        StartCoroutine(Searching(leaf.Pine.IndexCountZ, leaf.Pine.IndexCountX));
+                        // グレネード生成
+                        Vector3 v3 = leaf.transform.position;
+                        v3.y = 5f;
+                        Instantiate(_grenadePrefab, v3, leaf.transform.rotation);
                     }
                     else
                     {
@@ -157,31 +170,49 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Searching(int indexZ, int indexX)
+    IEnumerator Searching(int indexZ, int indexX)
     {
-        if (_generater._pines[indexZ, indexX].PineState == PineState.None)
+        if (!_doneSearching)
         {
-            for (int z = -1; z < 2; z++)
-            {
-                for (int x = -1; x < 2; x++)
-                {
-                    if (indexZ == z && indexX == z) continue;
-                    if (indexX + x < 0) continue;
-                    if (indexX + x > _generater._pines.GetLength(1) - 1) continue;
-                    if (indexZ + z < 0) continue;
-                    if (indexZ + z > _generater._pines.GetLength(0) - 1) continue;
+            _doneSearching = true;
+            yield return new WaitForSeconds(_gaugeController.GaugeTime);
+        }
 
-                    if (_generater._pines[indexZ + z, indexX + x].PineState != PineState.ImmaturePine && !_generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>().IsSearched)
+        if (!_gaugeController._isSuccessGauge)
+        {
+            Score(_generater._pines[indexZ, indexX].gameObject.GetComponent<Pine>());
+            _generater._leafs[indexZ, indexX].InstancePrticle();
+            _generater._pines[indexZ, indexX].gameObject.GetComponent<Pine>().IsSearched = true;
+            _generater._pines[indexZ, indexX].PullOut(_pullOutDistance);
+            yield return null;
+        }
+        else
+        {
+            if (_generater._pines[indexZ, indexX].PineState == PineState.None)
+            {
+                for (int z = -1; z < 2; z++)
+                {
+                    for (int x = -1; x < 2; x++)
                     {
-                        Score(_generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>());
-                        _generater._leafs[indexZ + z, indexX + x].InstancePrticle();
-                        _generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>().IsSearched = true;
-                        _generater._pines[indexZ + z, indexX + x].PullOut(_pullOutDistance);
-                        Searching(indexZ + z, indexX + x);
+                        if (indexZ == z && indexX == z) continue;
+                        if (indexX + x < 0) continue;
+                        if (indexX + x > _generater._pines.GetLength(1) - 1) continue;
+                        if (indexZ + z < 0) continue;
+                        if (indexZ + z > _generater._pines.GetLength(0) - 1) continue;
+
+                        if (_generater._pines[indexZ + z, indexX + x].PineState != PineState.ImmaturePine && !_generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>().IsSearched)
+                        {
+                            Score(_generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>());
+                            _generater._leafs[indexZ + z, indexX + x].InstancePrticle();
+                            _generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>().IsSearched = true;
+                            _generater._pines[indexZ + z, indexX + x].PullOut(_pullOutDistance);
+                            StartCoroutine(Searching(indexZ + z, indexX + x));
+                        }
                     }
                 }
             }
         }
+        _doneSearching = false;
     }
 
     void Score(Pine pine)
