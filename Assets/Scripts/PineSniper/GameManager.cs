@@ -17,15 +17,15 @@ public class GameManager : MonoBehaviour
     /// <summary>Pineを地表に出す距離</summary>
     [SerializeField] float _pullOutDistance = 1.5f;
     /// <summary>制限時間</summary>
-    [SerializeField] int _setTime = 0;
+    [SerializeField] float _setTimeSecond = 0;
     [SerializeField] GameObject _grenadePrefab = null;
     [SerializeField] SniperRifleController _sniper = null;
-    [SerializeField] Text _scoreText = null;
     [SerializeField] Text _uriageText = null;
     [SerializeField] Text _pineCountText = null;
     [SerializeField] Text _mineCountText = null;
     [SerializeField] Text _timerText = null;
     [SerializeField] GameObject _gaugeObj = null;
+    [SerializeField] GameObject _resultPanel = null;
     GaugeController _gaugeController;
     Generater _generater;
 
@@ -39,25 +39,20 @@ public class GameManager : MonoBehaviour
     bool _isZoom = false;
     /// <summary>ズームする時の初期位置</summary>
     float _originView = 0;
-    /// <summary>全てのスコア</summary>
-    float _totalScore = 0;
     /// <summary>売上金</summary>
-    float _uriage = 0;
+    int _uriage = 0;
     /// <summary>現在のPineの数</summary>
-    float _currentPineCount = 0;
+    int _currentPineCount = 0;
     /// <summary>全てのPineの数</summary>
-    float _totalPineCount = 0;
+    int _totalPineCount = 0;
     /// <summary>現在のMineの数</summary>
-    float _currentMineCount = 0;
+    int _currentMineCount = 0;
     /// <summary>全てのMineの数</summary>
-    float _totalMineCount = 0;
-    /// <summary>残りMineのボーナススコア</summary>
-    float _mineBonusScore = 0;
+    int _totalMineCount = 0;
 
     bool _doneSearching = false;
 
-    int _minute = 0;
-    float _second = 0;
+    float _timer = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -66,31 +61,27 @@ public class GameManager : MonoBehaviour
         _isScope = false;
         _scope.gameObject.SetActive(false);
         _originView = _scopeVcam.m_Lens.FieldOfView;
-        _minute = _setTime;
         _gaugeController = _gaugeObj.GetComponent<GaugeController>();
+        _timer = _setTimeSecond;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_isScope)
+        if (!_isScope && !_resultPanel.activeSelf)
         {
             _sniper.Idol();
         }
 
         if (_isGame)
         {
-            _second -= Time.deltaTime;
+            _timer -= Time.deltaTime;
 
-            if (_second <= 0)
-            {
-                _minute -= 1;
-                _second = 59;
-            }
-            _timerText.text = $"タイム  {_minute.ToString("00")} : {_second.ToString("00")}";
+            _timerText.text = $"タイム  {_timer.ToString("00")}ビョウ";
 
             if (_gaugeController.IsGauge) return;
             Ray();
+            MonitoringGame();
         }
     }
 
@@ -106,6 +97,15 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
     }
 
+    void OffScope()
+    {
+        _isGame = false;
+        _isScope = false;
+        _scope.gameObject.SetActive(false);
+        _originVcam.SetActive(true);
+        Cursor.visible = true;
+    }
+
     void Ray()
     {
         if (!_isScope) return;
@@ -114,11 +114,14 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
+            _sniper.ShotSE();
+
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
             {
                 if (hit.collider.tag == "LeafTag")
                 {
                     Leaf leaf = hit.collider.gameObject.GetComponent<Leaf>();
+                    _doneSearching = false; // ここで呼ぶことで、再起呼び出しした時に引っかからなくなる
 
                     if (_isFirst)
                     {
@@ -143,7 +146,7 @@ public class GameManager : MonoBehaviour
                         leaf.Pine.PullOut(_pullOutDistance);
                         leaf.InstancePrticle();
                         leaf.Pine.IsSearched = true;
-                        Score(leaf.Pine);
+                        GamingScore(leaf.Pine);
                     }
                 }
             }
@@ -180,7 +183,7 @@ public class GameManager : MonoBehaviour
 
         if (!_gaugeController._isSuccessGauge)
         {
-            Score(_generater._pines[indexZ, indexX].gameObject.GetComponent<Pine>());
+            GamingScore(_generater._pines[indexZ, indexX].gameObject.GetComponent<Pine>());
             _generater._leafs[indexZ, indexX].InstancePrticle();
             _generater._pines[indexZ, indexX].gameObject.GetComponent<Pine>().IsSearched = true;
             _generater._pines[indexZ, indexX].PullOut(_pullOutDistance);
@@ -202,7 +205,7 @@ public class GameManager : MonoBehaviour
 
                         if (_generater._pines[indexZ + z, indexX + x].PineState != PineState.ImmaturePine && !_generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>().IsSearched)
                         {
-                            Score(_generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>());
+                            GamingScore(_generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>());
                             _generater._leafs[indexZ + z, indexX + x].InstancePrticle();
                             _generater._pines[indexZ + z, indexX + x].gameObject.GetComponent<Pine>().IsSearched = true;
                             _generater._pines[indexZ + z, indexX + x].PullOut(_pullOutDistance);
@@ -212,10 +215,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        _doneSearching = false;
     }
 
-    void Score(Pine pine)
+    void GamingScore(Pine pine)
     {
         if (pine.PineState != PineState.ImmaturePine)
         {
@@ -229,7 +231,23 @@ public class GameManager : MonoBehaviour
         }
 
         _pineCountText.text = $"パイン  {_currentPineCount.ToString("00")} / {_totalPineCount.ToString("00")}";
-        _mineCountText.text = $"マイン  {_currentMineCount.ToString("00")} / {_totalMineCount.ToString("00")}";
+        _mineCountText.text = $"ダメパイン  {_currentMineCount.ToString("00")} / {_totalMineCount.ToString("00")}";
         _uriageText.text = $"ウリアゲ   ￥{_uriage}";
+    }
+
+    void MonitoringGame()
+    {
+        if (!_isGame || !_isScope || _isFirst || _gaugeController.IsGauge) return;
+
+        if (_currentPineCount == _totalPineCount || _currentMineCount == _totalMineCount || _timer <= 0)
+        {
+            // GameOver
+            OffScope();
+            // リザルト画面Panelを表示
+            _resultPanel.SetActive(true);
+            int pineScore = _generater._pines[0, 0]._pineScore;
+            int mineScore = _generater._pines[0, 0]._mineScore;
+            _resultPanel.GetComponent<ResultScoreManager>().ResultScore(_currentPineCount, pineScore, _currentMineCount, mineScore, _totalMineCount, _timer, _setTimeSecond);
+        }
     }
 }

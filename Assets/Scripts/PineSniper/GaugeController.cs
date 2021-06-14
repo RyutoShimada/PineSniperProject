@@ -49,13 +49,11 @@ public class GaugeController : MonoBehaviour
 
             if (_onButton && _time > 0)
             {
-                Debug.Log($"Good! Time : {(_gaugeTime - _time).ToString("f1")}");
                 ResetGauge();
                 _isSuccessGauge = true;
             }
             else if (_time <= 0)
             {
-                Debug.Log($"Bad! Time : {(_gaugeTime - _time).ToString("f1")}");
                 ResetGauge();
                 _isSuccessGauge = false;
             }
