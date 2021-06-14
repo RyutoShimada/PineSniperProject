@@ -42,16 +42,22 @@ public class Generater : MonoBehaviour
     /// <summary>実際にオブジェクトを生成する位置</summary>
     Vector3[,] _generatePositions;
 
+    /// <summary>デバッグ用</summary>
+    [SerializeField] bool _leafActiv = true;
+
     void Start()
     {
         GenerateField();
         SetGenerateObjectPosition();
         GenerateObject();
-    }
 
-    private void OnValidate()
-    {
-        //GenerateField();
+        if (!_leafActiv)
+        {
+            foreach (var item in _leafs)
+            {
+                item.gameObject.SetActive(false);
+            }
+        }
     }
 
     void GenerateField()
@@ -153,8 +159,33 @@ public class Generater : MonoBehaviour
             if (pine.PineState != PineState.ImmaturePine && randomZ != indexCountZ && randomX != indexCountX)
             {
                 Destroy(_pines[randomZ, randomX].gameObject);
-                //_pineObjects[randomZ, randomX] = Instantiate(_minePrefab, _pineObjects[randomZ, randomX].transform.position, _pineObjects[randomZ, randomX].transform.rotation);
                 _pines[randomZ, randomX] = Instantiate(_minePrefab, _pines[randomZ, randomX].transform.position, _pines[randomZ, randomX].transform.rotation).gameObject.GetComponent<Pine>();
+                _pines[randomZ, randomX].PineState = PineState.ImmaturePine;
+                _leafs[randomZ, randomX].Pine = _pines[randomZ, randomX];
+                SetMineCount(randomZ, randomX);
+                i++; //ここに書くことで、条件を満たさない限り無限にループする
+            }
+        }
+    }
+
+    /// <summary>
+    /// デバッグ用
+    /// </summary>
+    public void GenerateMine()
+    {
+        if (_mineCount > _pines.Length) _mineCount = _pines.Length; //無限ループを防ぐ
+
+        for (int i = 0; i < _mineCount;)
+        {
+            int randomZ = Random.Range(0, _pines.GetLength(0));
+            int randomX = Random.Range(0, _pines.GetLength(1));
+
+            Pine pine = _pines[randomZ, randomX];
+
+            if (pine.PineState != PineState.ImmaturePine && randomZ != 0 && randomX != 0)
+            {
+                Destroy(_pines[randomZ, randomX].gameObject);
+                _pines[randomZ, randomX] = Instantiate(_minePrefab, _pines[randomZ, randomX].transform.position + new Vector3(0, -1, 0), _pines[randomZ, randomX].transform.rotation).gameObject.GetComponent<Pine>();
                 _pines[randomZ, randomX].PineState = PineState.ImmaturePine;
                 _leafs[randomZ, randomX].Pine = _pines[randomZ, randomX];
                 SetMineCount(randomZ, randomX);
