@@ -17,6 +17,8 @@ public class GaugeController : MonoBehaviour
 
     bool _onButton = false;
 
+    [SerializeField] bool _cursol = false;
+
     public Leaf Leaf
     {
         get => _leaf;
@@ -78,7 +80,11 @@ public class GaugeController : MonoBehaviour
     }
     void ResetGauge()
     {
-        Cursor.visible = false;
+        if (!_cursol)
+        {
+            Cursor.visible = false;
+        }
+        
         gameObject.SetActive(false);
         _gauge.fillAmount = 1.0f;
         _time = _gaugeTime;
@@ -89,5 +95,15 @@ public class GaugeController : MonoBehaviour
     public void OnButtton()
     {
         _onButton = true;
+    }
+
+    /// <summary>
+    /// デバッグ用（ボタンから呼ぶ）
+    /// </summary>
+    public void OnGauge()
+    {
+        this.gameObject.SetActive(true);
+        _isGauge = true;
+        _leaf = FindObjectOfType<Leaf>();
     }
 }
