@@ -25,7 +25,7 @@ public class ResultScoreManager : MonoBehaviour
         _bonusScore.text = $"{bonus * mineScore} エン";
         _timeScore.text = $"{(setTime - time).ToString("f2")}ビョウ";
         int uriage = (pineCount * pineScore) - (mineScore * mineCount) + (bonus * mineScore);
-        uriage += (uriage / (int)time) * 10;
+        uriage += (uriage / (int)(setTime - time)) * 2;
         _uriageScore.text = $"{uriage} エン";
     }
 }

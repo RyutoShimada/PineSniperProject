@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text _timerText = null;
     [SerializeField] GameObject _gaugeObj = null;
     [SerializeField] GameObject _resultPanel = null;
+    [SerializeField] GameObject _startText = null;
     GaugeController _gaugeController;
     Generater _generater;
 
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
         _isScope = true;
         _scope.gameObject.SetActive(true);
         _originVcam.SetActive(false);
+        _startText.SetActive(false);
         Cursor.visible = false;
     }
 
