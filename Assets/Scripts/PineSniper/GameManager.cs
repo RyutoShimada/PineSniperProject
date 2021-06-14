@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float _pullOutDistance = 1.5f;
     /// <summary>制限時間</summary>
     [SerializeField] float _setTimeSecond = 0;
-    [SerializeField] GameObject _grenadePrefab = null;
     [SerializeField] SniperRifleController _sniper = null;
     [SerializeField] Text _uriageText = null;
     [SerializeField] Text _pineCountText = null;
@@ -123,6 +122,7 @@ public class GameManager : MonoBehaviour
                 if (hit.collider.tag == "LeafTag")
                 {
                     Leaf leaf = hit.collider.gameObject.GetComponent<Leaf>();
+
                     _doneSearching = false; // ここで呼ぶことで、再起呼び出しした時に引っかからなくなる
 
                     if (_isFirst)
@@ -137,11 +137,9 @@ public class GameManager : MonoBehaviour
                     {
                         _gaugeObj.SetActive(true);
                         _gaugeController.IsGauge = true;
+                        _gaugeController.Leaf = leaf;
                         StartCoroutine(Searching(leaf.Pine.IndexCountZ, leaf.Pine.IndexCountX));
-                        // グレネード生成
-                        Vector3 v3 = leaf.transform.position;
-                        v3.y = 5f;
-                        Instantiate(_grenadePrefab, v3, leaf.transform.rotation);
+
                     }
                     else
                     {
@@ -156,7 +154,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2"))
         {
-            float view = 0;
+            float view;
 
             if (_isZoom)
             {

@@ -6,12 +6,25 @@ using UnityEngine.UI;
 public class GaugeController : MonoBehaviour
 {
     [SerializeField] float _gaugeTime = 1.0f;
+    [SerializeField] GameObject _grenadePrefab = null;
+    [SerializeField] float _generateHeight = 0;
     Image _gauge = null;
     float _time;
     public bool _isSuccessGauge { get; private set; }
     private bool _isGauge = false;
 
+    Leaf _leaf = null;
+
     bool _onButton = false;
+
+    public Leaf Leaf
+    {
+        get => _leaf;
+        set
+        {
+            _leaf = value;
+        }
+    }
 
     public float GaugeTime
     {
@@ -51,6 +64,9 @@ public class GaugeController : MonoBehaviour
             {
                 ResetGauge();
                 _isSuccessGauge = true;
+                Vector3 v3 = _leaf.transform.position;
+                v3.y = _generateHeight;
+                Instantiate(_grenadePrefab, v3, _leaf.transform.rotation);
             }
             else if (_time <= 0)
             {

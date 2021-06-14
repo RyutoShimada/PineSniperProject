@@ -1817,6 +1817,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gaugeTime: 1
+  _grenadePrefab: {fileID: 8188841837024727576, guid: 128ff235020d2f3459cf4199ad1e1aad,
+    type: 3}
+  _generateHeight: 1
 --- !u!82 &541249376
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2414,8 +2417,6 @@ MonoBehaviour:
   _zoomDis: 30
   _pullOutDistance: 1.5
   _setTimeSecond: 60
-  _grenadePrefab: {fileID: 8188841837024727576, guid: 128ff235020d2f3459cf4199ad1e1aad,
-    type: 3}
   _sniper: {fileID: 982309515}
   _uriageText: {fileID: 1907752554}
   _pineCountText: {fileID: 1092039006}
