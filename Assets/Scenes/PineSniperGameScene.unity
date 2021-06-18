@@ -4484,6 +4484,11 @@ PrefabInstance:
       propertyPath: _leafActiv
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3877623314244617140, guid: 56c18a4547be3c84c97f39d0bd243a61,
+        type: 3}
+      propertyPath: _mineCount
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56c18a4547be3c84c97f39d0bd243a61, type: 3}
 --- !u!1001 &4547164234865020398
