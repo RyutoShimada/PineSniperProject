@@ -1,3 +1,3 @@
 # PineSniper  
-## YouTube  
-https://youtu.be/CVg4LYHf2KE  
+TitleSceneから遊べます。  
+Generaterでパイナップルや畑の生成間隔などを、微調整できるように頑張りました。
